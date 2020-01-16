@@ -17,9 +17,9 @@ func (d *DelphiController) GetCoins(c *gin.Context) {
 }
 
 func (d *DelphiController) GetCoinsList(c *gin.Context) {
-	var coinArray []*coins.Coin
+	var coinArray []coins.CoinInfo
 	for _, coin := range coinfactory.Coins {
-		coinArray = append(coinArray, coin)
+		coinArray = append(coinArray, coin.Info)
 	}
 	responses.GlobalResponseError(coinArray, nil, c)
 	return
