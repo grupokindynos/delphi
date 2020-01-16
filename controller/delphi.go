@@ -1,26 +1,70 @@
 package controller
 
 import (
+	"encoding/json"
 	"github.com/gin-gonic/gin"
 	"github.com/grupokindynos/common/coin-factory"
 	"github.com/grupokindynos/common/coin-factory/coins"
 	"github.com/grupokindynos/common/responses"
 	"github.com/grupokindynos/delphi/models"
+	"io/ioutil"
 )
 
 type DelphiController struct{}
 
 func (d *DelphiController) GetCoins(c *gin.Context) {
-	coinsResp := models.CoinsResponse{Coins:len(coinfactory.Coins)}
+	body, err := ioutil.ReadAll(c.Request.Body)
+	if err != nil {
+		responses.GlobalResponseError(nil, err, c)
+		return
+	}
+	var BodyRequest models.CoinsRequestBody
+	err = json.Unmarshal(body, &BodyRequest)
+	if err != nil {
+		responses.GlobalResponseError(nil, err, c)
+		return
+	}
+	allCoins := coinfactory.Coins
+	var matchCoins []*coins.Coin
+	if BodyRequest.Version <= 802010 {
+		for _, coin := range allCoins {
+			if coin.Info.TxBuilder == "bitcoinjs" ||
+				coin.Info.TxBuilder == "groestljs" ||
+				coin.Info.TxBuilder == "ethereum" ||
+				coin.Info.TxBuilder == "bitgo" {
+				matchCoins = append(matchCoins, coin)
+			}
+		}
+	}
+	coinsResp := models.CoinsResponse{Coins: len(matchCoins)}
 	responses.GlobalResponseError(coinsResp, nil, c)
 	return
 }
 
 func (d *DelphiController) GetCoinsList(c *gin.Context) {
-	var coinArray []coins.CoinInfo
-	for _, coin := range coinfactory.Coins {
-		coinArray = append(coinArray, coin.Info)
+	body, err := ioutil.ReadAll(c.Request.Body)
+	if err != nil {
+		responses.GlobalResponseError(nil, err, c)
+		return
 	}
-	responses.GlobalResponseError(coinArray, nil, c)
+	var BodyRequest models.CoinsRequestBody
+	err = json.Unmarshal(body, &BodyRequest)
+	if err != nil {
+		responses.GlobalResponseError(nil, err, c)
+		return
+	}
+	allCoins := coinfactory.Coins
+	var matchCoins []coins.CoinInfo
+	if BodyRequest.Version <= 802010 {
+		for _, coin := range allCoins {
+			if coin.Info.TxBuilder == "bitcoinjs" ||
+				coin.Info.TxBuilder == "groestljs" ||
+				coin.Info.TxBuilder == "ethereum" ||
+				coin.Info.TxBuilder == "bitgo" {
+				matchCoins = append(matchCoins, coin.Info)
+			}
+		}
+	}
+	responses.GlobalResponseError(matchCoins, nil, c)
 	return
 }

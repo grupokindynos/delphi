@@ -44,8 +44,8 @@ func ApplyRoutes(r *gin.Engine) {
 		limiterMiddleware := mgin.NewMiddleware(limiter.New(store, rate))
 		api.Use(limiterMiddleware)
 		delphiCtrl := controller.DelphiController{}
-		api.GET("coins", delphiCtrl.GetCoins)
-		api.GET("list", delphiCtrl.GetCoinsList)
+		api.POST("coins", delphiCtrl.GetCoins)
+		api.POST("list", delphiCtrl.GetCoinsList)
 	}
 	r.NoRoute(func(c *gin.Context) {
 		c.String(http.StatusNotFound, "Not Found")
