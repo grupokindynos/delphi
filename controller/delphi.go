@@ -3,6 +3,7 @@ package controller
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/grupokindynos/common/coin-factory"
+	"github.com/grupokindynos/common/coin-factory/coins"
 	"github.com/grupokindynos/common/responses"
 	"github.com/grupokindynos/delphi/models"
 )
@@ -16,6 +17,10 @@ func (d *DelphiController) GetCoins(c *gin.Context) {
 }
 
 func (d *DelphiController) GetCoinsList(c *gin.Context) {
-	responses.GlobalResponseError(coinfactory.Coins, nil, c)
+	var coinArray []*coins.Coin
+	for _, coin := range coinfactory.Coins {
+		coinArray = append(coinArray, coin)
+	}
+	responses.GlobalResponseError(coinArray, nil, c)
 	return
 }
