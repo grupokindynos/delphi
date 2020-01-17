@@ -5,7 +5,7 @@ go 1.13
 require (
 	github.com/gin-contrib/cors v1.3.0
 	github.com/gin-gonic/gin v1.5.0
-	github.com/grupokindynos/common v0.0.0-20200116182445-ec833aaa5a55
+	github.com/grupokindynos/common v0.0.0-20200117151840-9933d22df6a0
 	github.com/heroku/x v0.0.16
 	github.com/ulule/limiter/v3 v3.4.0
 )

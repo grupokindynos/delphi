@@ -12,6 +12,10 @@ import (
 
 type DelphiController struct{}
 
+var (
+	firstVersionCompat = 802020
+)
+
 func (d *DelphiController) GetCoins(c *gin.Context) {
 	body, err := ioutil.ReadAll(c.Request.Body)
 	if err != nil {
@@ -26,7 +30,7 @@ func (d *DelphiController) GetCoins(c *gin.Context) {
 	}
 	allCoins := coinfactory.Coins
 	var matchCoins []*coins.Coin
-	if BodyRequest.Version <= 802010 {
+	if BodyRequest.Version >= firstVersionCompat {
 		for _, coin := range allCoins {
 			if coin.Info.TxBuilder == "bitcoinjs" ||
 				coin.Info.TxBuilder == "groestljs" ||
@@ -55,7 +59,7 @@ func (d *DelphiController) GetCoinsList(c *gin.Context) {
 	}
 	allCoins := coinfactory.Coins
 	var matchCoins []coins.CoinInfo
-	if BodyRequest.Version <= 802010 {
+	if BodyRequest.Version >= firstVersionCompat {
 		for _, coin := range allCoins {
 			if coin.Info.TxBuilder == "bitcoinjs" ||
 				coin.Info.TxBuilder == "groestljs" ||
