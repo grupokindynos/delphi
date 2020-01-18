@@ -13,7 +13,7 @@ import (
 type DelphiController struct{}
 
 var (
-	firstVersionCompat = 802020
+	firstVersionCompat = 802010
 )
 
 func (d *DelphiController) GetCoins(c *gin.Context) {
