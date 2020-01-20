@@ -34,8 +34,7 @@ func (d *DelphiController) GetCoins(c *gin.Context) {
 		for _, coin := range allCoins {
 			if coin.Info.TxBuilder == "bitcoinjs" ||
 				coin.Info.TxBuilder == "groestljs" ||
-				coin.Info.TxBuilder == "ethereum" ||
-				coin.Info.TxBuilder == "bitgo" {
+				coin.Info.TxBuilder == "ethereum" {
 				matchCoins = append(matchCoins, coin)
 			}
 		}
