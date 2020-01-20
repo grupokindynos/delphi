@@ -32,6 +32,10 @@ func (d *DelphiController) GetCoins(c *gin.Context) {
 	var matchCoins []*coins.Coin
 	if BodyRequest.Version >= firstVersionCompat {
 		for _, coin := range allCoins {
+			// TODO enable Onion
+			if coin.Info.Tag == "ONION" {
+				continue
+			}
 			// Filter tokens by network
 			if coin.Info.Token {
 				if coin.Info.TokenNetwork == "ethereum" {
@@ -70,6 +74,10 @@ func (d *DelphiController) GetCoinsList(c *gin.Context) {
 	var matchCoins []coins.CoinInfo
 	if BodyRequest.Version >= firstVersionCompat {
 		for _, coin := range allCoins {
+			// TODO enable Onion
+			if coin.Info.Tag == "ONION" {
+				continue
+			}
 			// Filter tokens by network
 			if coin.Info.Token {
 				if coin.Info.TokenNetwork == "ethereum" {
