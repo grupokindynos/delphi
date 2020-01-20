@@ -35,7 +35,11 @@ func (d *DelphiController) GetCoins(c *gin.Context) {
 			// Filter tokens by network
 			if coin.Info.Token {
 				if coin.Info.TokenNetwork == "ethereum" {
-					matchCoins = append(matchCoins, coin)
+					// TODO remove this to enable all ERC20 tokens
+					if coin.Info.Tag == "ETH" {
+						matchCoins = append(matchCoins, coin)
+					}
+					// 	matchCoins = append(matchCoins, coin)
 				}
 			}
 			// Filter by builders
@@ -69,7 +73,11 @@ func (d *DelphiController) GetCoinsList(c *gin.Context) {
 			// Filter tokens by network
 			if coin.Info.Token {
 				if coin.Info.TokenNetwork == "ethereum" {
-					matchCoins = append(matchCoins, coin.Info)
+					// TODO remove this to enable all ERC20 tokens
+					if coin.Info.Tag == "ETH" {
+						matchCoins = append(matchCoins, coin.Info)
+					}
+					// 	matchCoins = append(matchCoins, coin.Info)
 				}
 			}
 			// Filter by builders
