@@ -66,10 +66,15 @@ func (d *DelphiController) GetCoinsList(c *gin.Context) {
 	var matchCoins []coins.CoinInfo
 	if BodyRequest.Version >= firstVersionCompat {
 		for _, coin := range allCoins {
+			// Filter tokens by network
+			if coin.Info.Token {
+				if coin.Info.TokenNetwork == "ethereum" {
+					matchCoins = append(matchCoins, coin.Info)
+				}
+			}
+			// Filter by builders
 			if coin.Info.TxBuilder == "bitcoinjs" ||
-				coin.Info.TxBuilder == "groestljs" ||
-				coin.Info.TxBuilder == "ethereum" ||
-				coin.Info.TxBuilder == "bitgo" {
+				coin.Info.TxBuilder == "groestljs" {
 				matchCoins = append(matchCoins, coin.Info)
 			}
 		}
