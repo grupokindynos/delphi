@@ -44,6 +44,7 @@ func ApplyRoutes(r *gin.Engine) {
 		limiterMiddleware := mgin.NewMiddleware(limiter.New(store, rate))
 		api.Use(limiterMiddleware)
 		delphiCtrl := controller.DelphiController{}
+		api.GET("version", delphiCtrl.GetCoins)
 		api.POST("coins", delphiCtrl.GetCoins)
 		api.POST("list", delphiCtrl.GetCoinsList)
 	}

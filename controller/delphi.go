@@ -13,7 +13,12 @@ import (
 type DelphiController struct{}
 
 var (
+	// Versions for different system status
 	firstVersionCompat = 802010
+
+	systemVersion    = 100000
+	latestVersion    = 802010
+	minVersionCompat = 802010
 )
 
 func (d *DelphiController) GetCoins(c *gin.Context) {
@@ -96,5 +101,15 @@ func (d *DelphiController) GetCoinsList(c *gin.Context) {
 		}
 	}
 	responses.GlobalResponseError(matchCoins, nil, c)
+	return
+}
+
+func (d *DelphiController) GetVersions(c *gin.Context) {
+	version := models.VersionResponse{
+		LatestVersion: latestVersion,
+		MinVersion:    minVersionCompat,
+		SystemVersion: systemVersion,
+	}
+	responses.GlobalResponseError(version, nil, c)
 	return
 }
