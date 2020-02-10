@@ -113,3 +113,24 @@ func (d *DelphiController) GetVersions(c *gin.Context) {
 	responses.GlobalResponseError(version, nil, c)
 	return
 }
+
+func (d *DelphiController) GetCoinsDev(c *gin.Context) {
+	allCoins := coinfactory.Coins
+	var matchCoins []*coins.Coin
+	for _, coin := range allCoins {
+		matchCoins = append(matchCoins, coin)
+	}
+	coinsResp := models.CoinsResponse{Coins: len(matchCoins)}
+	responses.GlobalResponseError(coinsResp, nil, c)
+	return
+}
+
+func (d *DelphiController) GetCoinsListDev(c *gin.Context) {
+	allCoins := coinfactory.Coins
+	var matchCoins []*coins.Coin
+	for _, coin := range allCoins {
+		matchCoins = append(matchCoins, coin)
+	}
+	responses.GlobalResponseError(matchCoins, nil, c)
+	return
+}
