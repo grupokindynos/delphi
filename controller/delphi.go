@@ -127,9 +127,9 @@ func (d *DelphiController) GetCoinsDev(c *gin.Context) {
 
 func (d *DelphiController) GetCoinsListDev(c *gin.Context) {
 	allCoins := coinfactory.Coins
-	var matchCoins []*coins.Coin
+	var matchCoins []*coins.CoinInfo
 	for _, coin := range allCoins {
-		matchCoins = append(matchCoins, coin)
+		matchCoins = append(matchCoins, &coin.Info)
 	}
 	responses.GlobalResponseError(matchCoins, nil, c)
 	return
