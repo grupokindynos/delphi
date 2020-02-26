@@ -2,23 +2,24 @@ package controller
 
 import (
 	"encoding/json"
+	"io/ioutil"
+
 	"github.com/gin-gonic/gin"
-	"github.com/grupokindynos/common/coin-factory"
+	coinfactory "github.com/grupokindynos/common/coin-factory"
 	"github.com/grupokindynos/common/coin-factory/coins"
 	"github.com/grupokindynos/common/responses"
 	"github.com/grupokindynos/delphi/models"
-	"io/ioutil"
 )
 
 type DelphiController struct{}
 
 var (
 	// Versions for different system status
-	firstVersionCompat = 802010
+	firstVersionCompat = 803010
 
 	systemVersion    = 100000
-	latestVersion    = 802010
-	minVersionCompat = 802010
+	latestVersion    = 803010
+	minVersionCompat = 803010
 )
 
 func (d *DelphiController) GetCoins(c *gin.Context) {
