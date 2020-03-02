@@ -2,9 +2,9 @@ package controller
 
 import (
 	"encoding/json"
+	"errors"
 	"github.com/gin-gonic/gin"
 	"github.com/grupokindynos/common/coin-factory"
-	"github.com/grupokindynos/common/coin-factory/coins"
 	"github.com/grupokindynos/common/responses"
 	"github.com/grupokindynos/delphi/models"
 	"io/ioutil"
@@ -14,12 +14,20 @@ type DelphiController struct{}
 
 var (
 	// Versions for different system status
-	firstVersionCompat = 802010
-
-	systemVersion    = 100000
-	latestVersion    = 802010
-	minVersionCompat = 802010
+	systemVersion    = 101000
+	latestVersion    = 804000
+	minVersionCompat = 804000
 )
+
+func (d *DelphiController) GetVersions(c *gin.Context) {
+	version := models.VersionResponse{
+		LatestVersion: latestVersion,
+		MinVersion:    minVersionCompat,
+		SystemVersion: systemVersion,
+	}
+	responses.GlobalResponseError(version, nil, c)
+	return
+}
 
 func (d *DelphiController) GetCoins(c *gin.Context) {
 	body, err := ioutil.ReadAll(c.Request.Body)
@@ -33,37 +41,34 @@ func (d *DelphiController) GetCoins(c *gin.Context) {
 		responses.GlobalResponseError(nil, err, c)
 		return
 	}
-	allCoins := coinfactory.Coins
-	var matchCoins []*coins.Coin
-	if BodyRequest.Version >= firstVersionCompat {
-		for _, coin := range allCoins {
-			// TODO enable Onion
-			if coin.Info.Tag == "ONION" {
-				continue
+	availableCoins := coinfactory.Coins
+	var availableCoinsTags []string
+	for _, coin := range availableCoins {
+		// Here we do the filtering
+
+		// All version lower than 804000 must enforce update.
+		if BodyRequest.Version < minVersionCompat {
+			responses.GlobalResponseError(nil, errors.New("version is not compatible, need to update"), c)
+			return
+		}
+
+		// Version 804000 is the minimum version for this new API system, includes all coins expect ONION. ERC20 are experimental but probable compatible.
+		if BodyRequest.Version >= 804000 {
+			if coin.Info.Token && coin.Info.Tag == "ETH" {
+				availableCoinsTags = append(availableCoinsTags, coin.Info.Tag)
 			}
-			// Filter tokens by network
-			if coin.Info.Token {
-				if coin.Info.TokenNetwork == "ethereum" {
-					// TODO remove this to enable all ERC20 tokens
-					if coin.Info.Tag == "ETH" {
-						matchCoins = append(matchCoins, coin)
-					}
-					// 	matchCoins = append(matchCoins, coin)
-				}
-			}
-			// Filter by builders
-			if coin.Info.TxBuilder == "bitcoinjs" ||
-				coin.Info.TxBuilder == "groestljs" {
-				matchCoins = append(matchCoins, coin)
+			if !coin.Info.Token && coin.Info.Tag != "ONION" {
+				availableCoinsTags = append(availableCoinsTags, coin.Info.Tag)
 			}
 		}
+
 	}
-	coinsResp := models.CoinsResponse{Coins: len(matchCoins)}
+	coinsResp := models.CoinsResponse{CoinsAvailable: len(availableCoinsTags), CoinsTickers: availableCoinsTags}
 	responses.GlobalResponseError(coinsResp, nil, c)
 	return
 }
 
-func (d *DelphiController) GetCoinsList(c *gin.Context) {
+func (d *DelphiController) GetDevCoins(c *gin.Context) {
 	body, err := ioutil.ReadAll(c.Request.Body)
 	if err != nil {
 		responses.GlobalResponseError(nil, err, c)
@@ -75,62 +80,27 @@ func (d *DelphiController) GetCoinsList(c *gin.Context) {
 		responses.GlobalResponseError(nil, err, c)
 		return
 	}
-	allCoins := coinfactory.Coins
-	var matchCoins []coins.CoinInfo
-	if BodyRequest.Version >= firstVersionCompat {
-		for _, coin := range allCoins {
-			// TODO enable Onion
-			if coin.Info.Tag == "ONION" {
-				continue
-			}
-			// Filter tokens by network
-			if coin.Info.Token {
-				if coin.Info.TokenNetwork == "ethereum" {
-					// TODO remove this to enable all ERC20 tokens
-					if coin.Info.Tag == "ETH" {
-						matchCoins = append(matchCoins, coin.Info)
-					}
-					// 	matchCoins = append(matchCoins, coin.Info)
-				}
-			}
-			// Filter by builders
-			if coin.Info.TxBuilder == "bitcoinjs" ||
-				coin.Info.TxBuilder == "groestljs" {
-				matchCoins = append(matchCoins, coin.Info)
-			}
-		}
+	availableCoins := coinfactory.Coins
+	var availableCoinsTags []string
+	for _, coins := range availableCoins {
+		availableCoinsTags = append(availableCoinsTags, coins.Info.Tag)
 	}
-	responses.GlobalResponseError(matchCoins, nil, c)
-	return
-}
-
-func (d *DelphiController) GetVersions(c *gin.Context) {
-	version := models.VersionResponse{
-		LatestVersion: latestVersion,
-		MinVersion:    minVersionCompat,
-		SystemVersion: systemVersion,
-	}
-	responses.GlobalResponseError(version, nil, c)
-	return
-}
-
-func (d *DelphiController) GetCoinsDev(c *gin.Context) {
-	allCoins := coinfactory.Coins
-	var matchCoins []*coins.Coin
-	for _, coin := range allCoins {
-		matchCoins = append(matchCoins, coin)
-	}
-	coinsResp := models.CoinsResponse{Coins: len(matchCoins)}
+	coinsResp := models.CoinsResponse{CoinsAvailable: len(availableCoinsTags), CoinsTickers: availableCoinsTags}
 	responses.GlobalResponseError(coinsResp, nil, c)
 	return
 }
 
-func (d *DelphiController) GetCoinsListDev(c *gin.Context) {
-	allCoins := coinfactory.Coins
-	var matchCoins []*coins.CoinInfo
-	for _, coin := range allCoins {
-		matchCoins = append(matchCoins, &coin.Info)
+func (d *DelphiController) GetCoinInfo(c *gin.Context) {
+	tag := c.Param("tag")
+	if tag == "" {
+		responses.GlobalResponseError(nil, errors.New("no coin tag defined"), c)
+		return
 	}
-	responses.GlobalResponseError(matchCoins, nil, c)
+	coin, err := coinfactory.GetCoin(tag)
+	if err != nil {
+		responses.GlobalResponseError(nil, err, c)
+		return
+	}
+	responses.GlobalResponseError(coin.Info, nil, c)
 	return
 }

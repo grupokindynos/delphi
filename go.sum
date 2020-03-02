@@ -94,10 +94,6 @@ github.com/gorilla/websocket v1.4.0/go.mod h1:E7qHFY5m1UJ88s3WnNqhKjPHQ0heANvMoA
 github.com/grpc-ecosystem/go-grpc-middleware v1.0.0/go.mod h1:FiyG127CGDf3tlThmgyCl78X/SZQqEOJBCDaAfeWzPs=
 github.com/grpc-ecosystem/grpc-gateway v1.9.4/go.mod h1:vNeuVxBJEsws4ogUvrchl83t/GYV9WGTSLVdBhOQFDY=
 github.com/grpc-ecosystem/grpc-gateway v1.9.6/go.mod h1:vNeuVxBJEsws4ogUvrchl83t/GYV9WGTSLVdBhOQFDY=
-github.com/grupokindynos/common v0.0.0-20200201000816-f5e78f989bd6 h1:7YhyZmu4thBn0V7mKEWRbRj/8G1dHXUD7I/qE+KP7S4=
-github.com/grupokindynos/common v0.0.0-20200201000816-f5e78f989bd6/go.mod h1:GuHK2gA5yF3hD5PjguSHuTf8f2xyEmdxoiFOFviyhng=
-github.com/grupokindynos/common v0.0.0-20200224183800-29cfe611fd1b h1:wOZ/MmSVel0eukyzssyMZyA1QJY2MsgpQzbXr1rM45s=
-github.com/grupokindynos/common v0.0.0-20200224183800-29cfe611fd1b/go.mod h1:GuHK2gA5yF3hD5PjguSHuTf8f2xyEmdxoiFOFviyhng=
 github.com/grupokindynos/common v0.0.0-20200228161944-3b5f0f37ea90 h1:NBsJS4/VSQrh+NsybUh+OWuBNM2YumbhQQseWe0fdeo=
 github.com/grupokindynos/common v0.0.0-20200228161944-3b5f0f37ea90/go.mod h1:GuHK2gA5yF3hD5PjguSHuTf8f2xyEmdxoiFOFviyhng=
 github.com/hashicorp/golang-lru v0.5.0/go.mod h1:/m3WP610KZHVQ1SGc6re/UDhFvYD7pJ4Ao+sR/qLZy8=
