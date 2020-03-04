@@ -45,11 +45,18 @@ func ApplyRoutes(r *gin.Engine) {
 		api.Use(limiterMiddleware)
 		delphiCtrl := controller.DelphiController{}
 		api.GET("version", delphiCtrl.GetVersions)
+
+		// v1 Routes
 		api.POST("coins", delphiCtrl.GetCoins)
 		api.POST("list", delphiCtrl.GetCoinsList)
-		// Dev routes will always return all coins.
 		api.POST("dev/coins", delphiCtrl.GetCoinsDev)
 		api.POST("dev/list", delphiCtrl.GetCoinsListDev)
+
+		// v2 Route for PP >= v8.4.0
+		api.POST("v2/coins", delphiCtrl.GetCoinsV2)
+		api.POST("v2/dev/coins", delphiCtrl.GetDevCoinsV2)
+		api.GET("v2/coin/:tag", delphiCtrl.GetCoinInfo)
+
 	}
 	r.NoRoute(func(c *gin.Context) {
 		c.String(http.StatusNotFound, "Not Found")
