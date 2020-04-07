@@ -3,12 +3,13 @@ package controller
 import (
 	"encoding/json"
 	"errors"
+	"io/ioutil"
+
 	"github.com/gin-gonic/gin"
-	"github.com/grupokindynos/common/coin-factory"
+	coinfactory "github.com/grupokindynos/common/coin-factory"
 	"github.com/grupokindynos/common/coin-factory/coins"
 	"github.com/grupokindynos/common/responses"
 	"github.com/grupokindynos/delphi/models"
-	"io/ioutil"
 )
 
 type DelphiController struct{}
@@ -161,9 +162,9 @@ func (d *DelphiController) GetCoinsV2(c *gin.Context) {
 
 		// Version 804000 is the minimum version for this new API system, includes all coins expect ONION. ERC20 are experimental but probable compatible.
 		if BodyRequest.Version >= 804000 {
-			if coin.Info.Token && coin.Info.Tag == "ETH" {
+			/*if coin.Info.Token && coin.Info.Tag == "ETH" {
 				availableCoinsTags = append(availableCoinsTags, coin.Info.Tag)
-			}
+			}*/
 			if !coin.Info.Token && coin.Info.Tag != "ONION" {
 				availableCoinsTags = append(availableCoinsTags, coin.Info.Tag)
 			}
