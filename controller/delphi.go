@@ -88,11 +88,9 @@ func (d *DelphiController) GetCoinsList(c *gin.Context) {
 			// Filter tokens by network
 			if coin.Info.Token {
 				if coin.Info.TokenNetwork == "ethereum" {
-					// TODO remove this to enable all ERC20 tokens
 					if coin.Info.Tag == "ETH" {
 						matchCoins = append(matchCoins, coin.Info)
 					}
-					// 	matchCoins = append(matchCoins, coin.Info)
 				}
 			}
 			// Filter by builders
@@ -153,7 +151,15 @@ func (d *DelphiController) GetCoinsV2(c *gin.Context) {
 	var availableCoinsTags []string
 	for _, coin := range availableCoins {
 		// Here we do the filtering
-
+		if coin.Info.Tag == "MW" ||
+			coin.Info.Tag == "LMY" ||
+			coin.Info.Tag == "LINK" ||
+			coin.Info.Tag == "FYD" ||
+			coin.Info.Tag == "RPD" ||
+			coin.Info.Tag == "BAT" ||
+			coin.Info.Tag == "MANA" {
+			continue
+		}
 		// All version lower than 804000 must enforce update.
 		if BodyRequest.Version < minVersionCompat {
 			responses.GlobalResponseError(nil, errors.New("version is not compatible, need to update"), c)
