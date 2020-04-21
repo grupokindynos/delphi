@@ -151,8 +151,7 @@ func (d *DelphiController) GetCoinsV2(c *gin.Context) {
 	var availableCoinsTags []string
 	for _, coin := range availableCoins {
 		// Here we do the filtering
-		if coin.Info.Tag == "MW" ||
-			coin.Info.Tag == "LMY" ||
+		if coin.Info.Tag == "LMY" ||
 			coin.Info.Tag == "LINK" ||
 			coin.Info.Tag == "FYD" ||
 			coin.Info.Tag == "RPD" ||
