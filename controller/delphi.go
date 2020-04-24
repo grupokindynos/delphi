@@ -153,7 +153,6 @@ func (d *DelphiController) GetCoinsV2(c *gin.Context) {
 		// Here we do the filtering
 		if coin.Info.Tag == "LMY" ||
 			coin.Info.Tag == "LINK" ||
-			coin.Info.Tag == "RPD" ||
 			coin.Info.Tag == "BAT" ||
 			coin.Info.Tag == "MANA" {
 			continue
