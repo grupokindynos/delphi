@@ -55,7 +55,10 @@ func ApplyRoutes(r *gin.Engine) {
 		// v2 Route for PP >= v8.4.0
 		api.POST("v2/coins", delphiCtrl.GetCoinsV2)
 		api.POST("v2/dev/coins", delphiCtrl.GetDevCoinsV2)
-		api.GET("v2/coin/:tag", delphiCtrl.GetCoinInfo)
+		api.GET("v2/coin/:tag", delphiCtrl.GetCoinInfoV2)
+
+		// v3 Route for PP >= v8.5.0 (Upgrade coin struct)
+		api.GET("v3/coin/:tag", delphiCtrl.GetCoinInfoV3)
 
 	}
 	r.NoRoute(func(c *gin.Context) {

@@ -150,27 +150,30 @@ func (d *DelphiController) GetCoinsV2(c *gin.Context) {
 	availableCoins := coinfactory.Coins
 	var availableCoinsTags []string
 	for _, coin := range availableCoins {
-		// Here we do the filtering
-		if coin.Info.Tag == "LMY" ||
-			coin.Info.Tag == "LINK" ||
-			coin.Info.Tag == "BAT" ||
-			coin.Info.Tag == "MANA" {
+		if coin.Info.Tag == "BAT" || coin.Info.Tag == "LINK" || coin.Info.Tag == "MANA" {
 			continue
 		}
+
+		// Version 804000 is the minimum version for this new API system, includes all coins expect ONION. ERC20 are experimental but probable compatible.
+		if BodyRequest.Version >= 805000 {
+			availableCoinsTags = append(availableCoinsTags, coin.Info.Tag)
+		}
+
+		// Version 804000 is the minimum version for this new API system, includes all coins expect ONION. ERC20 are experimental but probable compatible.
+		if BodyRequest.Version >= 804000 &&  BodyRequest.Version < 805000 {
+			// This coins are never available for version below 805000 since it requires an upgrade on the Coin model
+			if coin.Info.Tag == "ONION" || 
+				coin.Info.Tag == "CRW" ||
+				coin.Info.Tag == "XSG" {
+				continue
+			}
+			availableCoinsTags = append(availableCoinsTags, coin.Info.Tag)
+		}
+
 		// All version lower than 804000 must enforce update.
 		if BodyRequest.Version < minVersionCompat {
 			responses.GlobalResponseError(nil, errors.New("version is not compatible, need to update"), c)
 			return
-		}
-
-		// Version 804000 is the minimum version for this new API system, includes all coins expect ONION. ERC20 are experimental but probable compatible.
-		if BodyRequest.Version >= 804000 {
-			if coin.Info.Token {
-				availableCoinsTags = append(availableCoinsTags, coin.Info.Tag)
-			}
-			if !coin.Info.Token && coin.Info.Tag != "ONION" {
-				availableCoinsTags = append(availableCoinsTags, coin.Info.Tag)
-			}
 		}
 
 	}
@@ -201,7 +204,55 @@ func (d *DelphiController) GetDevCoinsV2(c *gin.Context) {
 	return
 }
 
-func (d *DelphiController) GetCoinInfo(c *gin.Context) {
+func (d *DelphiController) GetCoinInfoV2(c *gin.Context) {
+	tag := c.Param("tag")
+	if tag == "" {
+		responses.GlobalResponseError(nil, errors.New("no coin tag defined"), c)
+		return
+	}
+	coin, err := coinfactory.GetCoin(tag)
+	if err != nil {
+		responses.GlobalResponseError(nil, err, c)
+		return
+	}
+	coinLegacyFormat := models.CoinLegacy{
+		Info: models.CoinInfoLegacy{
+			Icon:         coin.Info.Icon,
+			Tag:          coin.Info.Tag,
+			Name:         coin.Info.Name,
+			Trezor:       coin.Info.Trezor,
+			Ledger:       coin.Info.Ledger,
+			Segwit:       coin.Info.Segwit,
+			Masternodes:  coin.Info.Masternodes,
+			Token:        coin.Info.Token,
+			StableCoin:   coin.Info.StableCoin,
+			TokenNetwork: coin.Info.TokenNetwork,
+			Contract:     coin.Info.Contract,
+			Decimals:     coin.Info.Decimals,
+			Blockbook:    coin.Info.Blockbook,
+			Protocol:     coin.Info.Protocol,
+			TxBuilder:    coin.Info.TxBuilder,
+			HDIndex:      coin.Info.HDIndex,
+			Networks:     make(map[string]models.CoinNetworkInfoLegacy),
+		},
+	}
+
+	for name, params := range coin.Info.Networks {
+		coinLegacyFormat.Info.Networks[name] = models.CoinNetworkInfoLegacy{
+			MessagePrefix: params.MessagePrefix,
+			Bech32:        params.Bech32,
+			Bip32:         params.Bip32,
+			PubKeyHash:    params.PubKeyHash[0],
+			ScriptHash:    params.ScriptHash[0],
+			Wif:           params.Wif[0],
+		}
+	}
+
+	responses.GlobalResponseError(coinLegacyFormat.Info, nil, c)
+	return
+}
+
+func (d *DelphiController) GetCoinInfoV3(c *gin.Context) {
 	tag := c.Param("tag")
 	if tag == "" {
 		responses.GlobalResponseError(nil, errors.New("no coin tag defined"), c)
