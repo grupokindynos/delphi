@@ -160,9 +160,9 @@ func (d *DelphiController) GetCoinsV2(c *gin.Context) {
 		}
 
 		// Version 804000 is the minimum version for this new API system, includes all coins expect ONION. ERC20 are experimental but probable compatible.
-		if BodyRequest.Version >= 804000 &&  BodyRequest.Version < 805000 {
+		if BodyRequest.Version >= 804000 && BodyRequest.Version < 805000 {
 			// This coins are never available for version below 805000 since it requires an upgrade on the Coin model
-			if coin.Info.Tag == "ONION" || 
+			if coin.Info.Tag == "ONION" ||
 				coin.Info.Tag == "CRW" ||
 				coin.Info.Tag == "XSG" {
 				continue
@@ -232,6 +232,7 @@ func (d *DelphiController) GetCoinInfoV2(c *gin.Context) {
 			Blockbook:    coin.Info.Blockbook,
 			Protocol:     coin.Info.Protocol,
 			TxBuilder:    coin.Info.TxBuilder,
+			TxVersion:    coin.Info.TxVersion,
 			HDIndex:      coin.Info.HDIndex,
 			Networks:     make(map[string]models.CoinNetworkInfoLegacy),
 		},
