@@ -38,11 +38,7 @@ func (d *DelphiController) GetCoins(c *gin.Context) {
 	allCoins := coinfactory.Coins
 	var matchCoins []*coins.Coin
 	if BodyRequest.Version >= firstVersionCompat {
-		for _, coin := range allCoins {
-			// TODO enable Onion
-			if coin.Info.Tag == "ONION" {
-				continue
-			}
+		for _, coin := range allCoins {			
 			// Filter tokens by network
 			if coin.Info.Token {
 				if coin.Info.TokenNetwork == "ethereum" {
@@ -81,10 +77,6 @@ func (d *DelphiController) GetCoinsList(c *gin.Context) {
 	var matchCoins []coins.CoinInfo
 	if BodyRequest.Version >= firstVersionCompat {
 		for _, coin := range allCoins {
-			// TODO enable Onion
-			if coin.Info.Tag == "ONION" {
-				continue
-			}
 			// Filter tokens by network
 			if coin.Info.Token {
 				if coin.Info.TokenNetwork == "ethereum" {
@@ -154,16 +146,15 @@ func (d *DelphiController) GetCoinsV2(c *gin.Context) {
 			continue
 		}
 
-		// Version 804000 is the minimum version for this new API system, includes all coins expect ONION. ERC20 are experimental but probable compatible.
+		// Version 804000 is the minimum version for this new API system, includes all coins. ERC20 are experimental but probable compatible.
 		if BodyRequest.Version >= 805000 {
 			availableCoinsTags = append(availableCoinsTags, coin.Info.Tag)
 		}
 
-		// Version 804000 is the minimum version for this new API system, includes all coins expect ONION. ERC20 are experimental but probable compatible.
+		// Version 804000 is the minimum version for this new API system, includes all coins. ERC20 are experimental but probable compatible.
 		if BodyRequest.Version >= 804000 && BodyRequest.Version < 805000 {
 			// This coins are never available for version below 805000 since it requires an upgrade on the Coin model
-			if coin.Info.Tag == "ONION" ||
-				coin.Info.Tag == "CRW" ||
+			if coin.Info.Tag == "CRW" ||
 				coin.Info.Tag == "XSG" {
 				continue
 			}
