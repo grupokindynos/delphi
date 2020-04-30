@@ -142,7 +142,7 @@ func (d *DelphiController) GetCoinsV2(c *gin.Context) {
 	availableCoins := coinfactory.Coins
 	var availableCoinsTags []string
 	for _, coin := range availableCoins {
-		if coin.Info.Tag == "BAT" || coin.Info.Tag == "LINK" || coin.Info.Tag == "MANA" || coin.Info.Tag == "DAPS" {
+		if coin.Info.Tag == "BAT" || coin.Info.Tag == "LINK" || coin.Info.Tag == "MANA" || coin.Info.Tag == "DAPS" ||  coin.Info.Tag == "XSG" {
 			continue
 		}
 
@@ -154,8 +154,7 @@ func (d *DelphiController) GetCoinsV2(c *gin.Context) {
 		// Version 804000 is the minimum version for this new API system, includes all coins. ERC20 are experimental but probable compatible.
 		if BodyRequest.Version >= 804000 && BodyRequest.Version < 805000 {
 			// This coins are never available for version below 805000 since it requires an upgrade on the Coin model
-			if coin.Info.Tag == "CRW" ||
-				coin.Info.Tag == "XSG" {
+			if coin.Info.Tag == "CRW" {
 				continue
 			}
 			availableCoinsTags = append(availableCoinsTags, coin.Info.Tag)
