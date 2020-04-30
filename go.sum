@@ -105,8 +105,8 @@ github.com/gorilla/websocket v1.4.0/go.mod h1:E7qHFY5m1UJ88s3WnNqhKjPHQ0heANvMoA
 github.com/grpc-ecosystem/go-grpc-middleware v1.2.0/go.mod h1:mJzapYve32yjrKlk9GbyCZHuPgZsrbyIbyKhSzOpg6s=
 github.com/grpc-ecosystem/grpc-gateway v1.9.4/go.mod h1:vNeuVxBJEsws4ogUvrchl83t/GYV9WGTSLVdBhOQFDY=
 github.com/grpc-ecosystem/grpc-gateway v1.9.6/go.mod h1:vNeuVxBJEsws4ogUvrchl83t/GYV9WGTSLVdBhOQFDY=
-github.com/grupokindynos/common v0.0.0-20200428231928-648ff69aaf96 h1:7Jlvt3c2ClMDF8w3l9LvJMIgTTh1cKEoldLHZCRhGp4=
-github.com/grupokindynos/common v0.0.0-20200428231928-648ff69aaf96/go.mod h1:TmP70nKfgs35046GoB8TIq1r1OFvEHYaaEvaPs6PayM=
+github.com/grupokindynos/common v0.0.0-20200430162516-bc88edc8966d h1:vUfK9YGGLyrbucIN9SmZL1M6FZ+EgPfWmSYiNrRfviw=
+github.com/grupokindynos/common v0.0.0-20200430162516-bc88edc8966d/go.mod h1:TmP70nKfgs35046GoB8TIq1r1OFvEHYaaEvaPs6PayM=
 github.com/hashicorp/golang-lru v0.5.0/go.mod h1:/m3WP610KZHVQ1SGc6re/UDhFvYD7pJ4Ao+sR/qLZy8=
 github.com/hashicorp/golang-lru v0.5.1/go.mod h1:/m3WP610KZHVQ1SGc6re/UDhFvYD7pJ4Ao+sR/qLZy8=
 github.com/hashicorp/hcl v1.0.0/go.mod h1:E5yfLk+7swimpb2L/Alb/PJmXilQ/rhwaUYs4T20WEQ=
