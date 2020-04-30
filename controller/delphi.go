@@ -146,7 +146,6 @@ func (d *DelphiController) GetCoinsV2(c *gin.Context) {
 			continue
 		}
 
-		// Version 804000 is the minimum version for this new API system, includes all coins. ERC20 are experimental but probable compatible.
 		if BodyRequest.Version >= 805000 {
 			availableCoinsTags = append(availableCoinsTags, coin.Info.Tag)
 		}
