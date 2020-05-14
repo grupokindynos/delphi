@@ -10,6 +10,7 @@ import (
 	"github.com/grupokindynos/common/coin-factory/coins"
 	"github.com/grupokindynos/common/responses"
 	"github.com/grupokindynos/delphi/models"
+	"gopkg.in/src-d/go-git.v3"
 )
 
 type DelphiController struct{}
@@ -255,4 +256,25 @@ func (d *DelphiController) GetCoinInfoV3(c *gin.Context) {
 	}
 	responses.GlobalResponseError(coin.Info, nil, c)
 	return
+}
+
+func (d *DelphiController) GetCoinsVersion(c *gin.Context) {
+	res, err := git.NewRepository("https://github.com/grupokindynos/delphi", nil)
+	if err != nil {
+		responses.GlobalResponseError(nil, err, c)
+		return
+	}
+
+	if err := res.Pull("origin", "refs/heads/master"); err != nil {
+		responses.GlobalResponseError(nil, err, c)
+		return
+	}
+
+	head, err := res.Head("origin")
+	if err != nil {
+		responses.GlobalResponseError(nil, err, c)
+		return
+	}
+
+	responses.GlobalResponse(head.String(), c)
 }

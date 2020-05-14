@@ -60,6 +60,8 @@ func ApplyRoutes(r *gin.Engine) {
 		// v3 Route for PP >= v8.5.0 (Upgrade coin struct)
 		api.GET("v3/coin/:tag", delphiCtrl.GetCoinInfoV3)
 
+		// returns the latest commit hash of delphi on git
+		api.GET("coins/version", delphiCtrl.GetCoinsVersion)
 	}
 	r.NoRoute(func(c *gin.Context) {
 		c.String(http.StatusNotFound, "Not Found")
