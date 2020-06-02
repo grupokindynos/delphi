@@ -39,7 +39,7 @@ func (d *DelphiController) GetCoins(c *gin.Context) {
 	allCoins := coinfactory.Coins
 	var matchCoins []*coins.Coin
 	if BodyRequest.Version >= firstVersionCompat {
-		for _, coin := range allCoins {			
+		for _, coin := range allCoins {
 			// Filter tokens by network
 			if coin.Info.Token {
 				if coin.Info.TokenNetwork == "ethereum" {
@@ -143,7 +143,7 @@ func (d *DelphiController) GetCoinsV2(c *gin.Context) {
 	availableCoins := coinfactory.Coins
 	var availableCoinsTags []string
 	for _, coin := range availableCoins {
-		if coin.Info.Tag == "BAT" || coin.Info.Tag == "LINK" || coin.Info.Tag == "MANA" || coin.Info.Tag == "DAPS" {
+		if coin.Info.Tag == "BAT" || coin.Info.Tag == "LINK" || coin.Info.Tag == "MANA" || coin.Info.Tag == "DAPS" || coin.Info.Tag == "NULS" {
 			continue
 		}
 
