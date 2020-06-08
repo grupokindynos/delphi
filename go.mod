@@ -6,7 +6,7 @@ require (
 	github.com/alcortesm/tgz v0.0.0-20161220082320-9c5fe88206d7 // indirect
 	github.com/gin-contrib/cors v1.3.1
 	github.com/gin-gonic/gin v1.6.2
-	github.com/grupokindynos/common v0.0.0-20200608135037-e7932ad869fc
+	github.com/grupokindynos/common v0.0.0-20200608210421-a00121e41d6f
 	github.com/heroku/x v0.0.22
 	github.com/olympus-protocol/ogen v0.0.0-20200122020117-3da99bac25aa // indirect
 	github.com/sergi/go-diff v1.1.0 // indirect
