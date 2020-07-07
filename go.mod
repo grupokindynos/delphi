@@ -7,7 +7,7 @@ require (
 	github.com/dustin/go-humanize v1.0.0 // indirect
 	github.com/gin-contrib/cors v1.3.1
 	github.com/gin-gonic/gin v1.6.2
-	github.com/grupokindynos/common v0.0.0-20200622231723-24bfa8967a74
+	github.com/grupokindynos/common v0.0.0-20200623183652-a8ca8030ada5
 	github.com/heroku/x v0.0.22
 	github.com/sergi/go-diff v1.1.0 // indirect
 	github.com/sourcegraph/go-vcsurl v0.0.0-20161114165620-2305ecca26ab // indirect
