@@ -99,6 +99,10 @@ github.com/grpc-ecosystem/grpc-gateway v1.9.4/go.mod h1:vNeuVxBJEsws4ogUvrchl83t
 github.com/grpc-ecosystem/grpc-gateway v1.9.6/go.mod h1:vNeuVxBJEsws4ogUvrchl83t/GYV9WGTSLVdBhOQFDY=
 github.com/grupokindynos/common v0.0.0-20200709192055-30906d948661 h1:oyHwGcGP2SSRwz2bCFQjcKGu7EZ+y4NIv5PEr7YNdq8=
 github.com/grupokindynos/common v0.0.0-20200709192055-30906d948661/go.mod h1:lCXEoFdFmLhbC6bGfhkByFYv6ndS+j+qr+SUBZ4ryx0=
+github.com/grupokindynos/common v0.0.0-20200826181559-a254d58ea8b9 h1:kFQyZf+SFddb4ZoRfDqhuqjEqOB3yQrqkqyrMbxBmWI=
+github.com/grupokindynos/common v0.0.0-20200826181559-a254d58ea8b9/go.mod h1:01s5/fk/NE85VAR6RiFfUWWiy/UnSBRLIltJCAu56Bw=
+github.com/grupokindynos/common v0.0.0-20200827025425-2063f80d0ed3 h1:SEbSI7kFay2do2RtGK4PGU7NrbZ2zpNn9dA4h2+cSeM=
+github.com/grupokindynos/common v0.0.0-20200827025425-2063f80d0ed3/go.mod h1:01s5/fk/NE85VAR6RiFfUWWiy/UnSBRLIltJCAu56Bw=
 github.com/hashicorp/golang-lru v0.5.0/go.mod h1:/m3WP610KZHVQ1SGc6re/UDhFvYD7pJ4Ao+sR/qLZy8=
 github.com/hashicorp/golang-lru v0.5.1/go.mod h1:/m3WP610KZHVQ1SGc6re/UDhFvYD7pJ4Ao+sR/qLZy8=
 github.com/heroku/heroku-go/v5 v5.1.0/go.mod h1:d+1QrZyjbnQJG1f8xIoVvMQRFLt3XRVZOdlm26Sr73U=
@@ -146,8 +150,12 @@ github.com/lstoll/grpce v1.7.0/go.mod h1:XiCWl3R+avNCT7KsTjv3qCblgsSqd0SC4ymySrH
 github.com/lyft/protoc-gen-validate v0.0.13/go.mod h1:XbGvPuh87YZc5TdIa2/I4pLk0QoUACkjt2znoq26NVQ=
 github.com/martinboehm/btcd v0.0.0-20190104121910-8e7c0427fee5 h1:uy0KRypmdHQOcMK+J3boprGlFIMP+c1LHmoEo/Lb0QI=
 github.com/martinboehm/btcd v0.0.0-20190104121910-8e7c0427fee5/go.mod h1:rKQj/jGwFruYjpM6vN+syReFoR0DsLQaajhyH/5mwUE=
+github.com/martinboehm/btcd v0.0.0-20200313230603-83af86142d93 h1:SBXxF9UMEPAswVhAt3Y275Lx59Do8C/rpAmg6k73HYY=
+github.com/martinboehm/btcd v0.0.0-20200313230603-83af86142d93/go.mod h1:rKQj/jGwFruYjpM6vN+syReFoR0DsLQaajhyH/5mwUE=
 github.com/martinboehm/btcutil v0.0.0-20180706230648-ab6388e0c60a/go.mod h1:NIviPmxe43yBgIB4HGB4w4kv9/s5kaDa/pi+wZAAxQo=
 github.com/martinboehm/btcutil v0.0.0-20191023112652-a3d2b8457b77/go.mod h1:NIviPmxe43yBgIB4HGB4w4kv9/s5kaDa/pi+wZAAxQo=
+github.com/martinboehm/btcutil v0.0.0-20200229134221-d7706467ae8f h1:MMI9XvVjNHkqQDDyud0Ll0qd/w4jAhgkLZMY8q6KbR8=
+github.com/martinboehm/btcutil v0.0.0-20200229134221-d7706467ae8f/go.mod h1:NIviPmxe43yBgIB4HGB4w4kv9/s5kaDa/pi+wZAAxQo=
 github.com/mattn/go-isatty v0.0.7/go.mod h1:Iq45c/XA43vh69/j3iqttzPXn0bhXyGjM0Hdxcsrc5s=
 github.com/mattn/go-isatty v0.0.8/go.mod h1:Iq45c/XA43vh69/j3iqttzPXn0bhXyGjM0Hdxcsrc5s=
 github.com/mattn/go-isatty v0.0.9/go.mod h1:YNRxwqDuOph6SZLI9vUUz6OYw3QyUt7WiY2yME+cCiQ=
