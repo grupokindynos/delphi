@@ -143,7 +143,7 @@ func (d *DelphiController) GetCoinsV2(c *gin.Context) {
 	availableCoins := coinfactory.Coins
 	var availableCoinsTags []string
 	for _, coin := range availableCoins {
-		if coin.Info.Tag == "BAT" || coin.Info.Tag == "LINK" || coin.Info.Tag == "MANA" || coin.Info.Tag == "DAPS" || coin.Info.Tag == "DAI" || coin.Info.Tag == "GTH" || coin.Info.Tag == "WPOLIS"{
+		if coin.Info.Tag == "BAT" || coin.Info.Tag == "LINK" || coin.Info.Tag == "MANA" || coin.Info.Tag == "DAPS" || coin.Info.Tag == "DAI" || coin.Info.Tag == "GTH" {
 			continue
 		}
 
