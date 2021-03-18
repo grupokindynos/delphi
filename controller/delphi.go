@@ -20,7 +20,7 @@ var (
 	firstVersionCompat = 802010
 
 	systemVersion    = 100000
-	latestVersion    = 809000
+	latestVersion    = 808000
 	minVersionCompat = 802010
 )
 
