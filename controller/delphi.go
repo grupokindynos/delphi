@@ -20,7 +20,7 @@ var (
 	firstVersionCompat = 802010
 
 	systemVersion    = 100000
-	latestVersion    = 802010
+	latestVersion    = 809000
 	minVersionCompat = 802010
 )
 
@@ -143,7 +143,11 @@ func (d *DelphiController) GetCoinsV2(c *gin.Context) {
 	availableCoins := coinfactory.Coins
 	var availableCoinsTags []string
 	for _, coin := range availableCoins {
-		if coin.Info.Tag == "BAT" || coin.Info.Tag == "LINK" || coin.Info.Tag == "MANA" || coin.Info.Tag == "DAPS" || coin.Info.Tag == "DAI" || coin.Info.Tag == "POLISBSC" || coin.Info.Tag == "BNB"{
+		if BodyRequest.Version >= 809000 {
+			if coin.Info.Tag == "BAT" || coin.Info.Tag == "LINK" || coin.Info.Tag == "MANA" || coin.Info.Tag == "DAPS" || coin.Info.Tag == "DAI" {
+				continue
+			}
+		} else if coin.Info.Tag == "BAT" || coin.Info.Tag == "LINK" || coin.Info.Tag == "MANA" || coin.Info.Tag == "DAPS" || coin.Info.Tag == "DAI" || coin.Info.Tag == "POLISBSC" || coin.Info.Tag == "BNB"{
 			continue
 		}
 
