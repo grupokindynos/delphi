@@ -144,10 +144,10 @@ func (d *DelphiController) GetCoinsV2(c *gin.Context) {
 	var availableCoinsTags []string
 	for _, coin := range availableCoins {
 		if BodyRequest.Version >= 809000 {
-			if coin.Info.Tag == "BAT" || coin.Info.Tag == "LINK" || coin.Info.Tag == "MANA" || coin.Info.Tag == "DAPS" || coin.Info.Tag == "DAI" || coin.Info.Tag == "PIT"{
+			if coin.Info.Tag == "BAT" || coin.Info.Tag == "LINK" || coin.Info.Tag == "MANA" || coin.Info.Tag == "DAPS" || coin.Info.Tag == "DAI" || coin.Info.Tag == "PIT" || coin.Info.Tag == "CAKE" || coin.Info.Tag == "BUSD" {
 				continue
 			}
-		} else if coin.Info.Tag == "BAT" || coin.Info.Tag == "LINK" || coin.Info.Tag == "MANA" || coin.Info.Tag == "DAPS" || coin.Info.Tag == "DAI" || coin.Info.Tag == "POLISBSC" || coin.Info.Tag == "BNB" || coin.Info.Tag == "PIT"{
+		} else if coin.Info.Tag == "BAT" || coin.Info.Tag == "LINK" || coin.Info.Tag == "MANA" || coin.Info.Tag == "DAPS" || coin.Info.Tag == "DAI" || coin.Info.Tag == "POLISBSC" || coin.Info.Tag == "BNB" || coin.Info.Tag == "PIT" || coin.Info.Tag == "CAKE" || coin.Info.Tag == "BUSD"{
 			continue
 		}
 
